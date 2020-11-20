@@ -1,0 +1,44 @@
+2020-11-03 15:49:56 PostGrid: Start PostGrid ......
+2020-11-03 15:49:56 PostGrid: E:/work1/1/129/Ma0.8395H0¦Á3.06/results/tecflow.plt.bak
+2020-11-03 15:49:56 PostGrid: zone i = 0 
+2020-11-03 15:49:56 PostGrid: bcname = Symmetry
+2020-11-03 15:49:56 PostGrid: iblock = 0 
+2020-11-03 15:49:56 PostGrid: zone i = 1 
+2020-11-03 15:49:56 PostGrid: bcname = Farfield
+2020-11-03 15:49:57 PostGrid: iblock = 1 
+2020-11-03 15:49:57 PostGrid: zone i = 2 
+2020-11-03 15:49:57 PostGrid: bcname = Farfield
+2020-11-03 15:49:57 PostGrid: iblock = 2 
+2020-11-03 15:49:57 PostGrid: zone i = 3 
+2020-11-03 15:49:57 PostGrid: zone i = 0 
+2020-11-03 15:49:57 PostGrid: bcname = Symmetry
+2020-11-03 15:49:57 PostGrid: iblock = 3 
+2020-11-03 15:49:57 PostGrid: zone i = 1 
+2020-11-03 15:49:57 PostGrid: bcname = downwall
+2020-11-03 15:49:57 PostGrid: iblock = 4 
+2020-11-03 15:49:57 PostGrid: zone i = 2 
+2020-11-03 15:49:57 PostGrid: bcname = Farfield
+2020-11-03 15:49:57 PostGrid: iblock = 5 
+2020-11-03 15:49:57 PostGrid: zone i = 3 
+2020-11-03 15:49:57 PostGrid: zone i = 0 
+2020-11-03 15:49:57 PostGrid: bcname = Symmetry
+2020-11-03 15:49:57 PostGrid: iblock = 6 
+2020-11-03 15:49:57 PostGrid: zone i = 1 
+2020-11-03 15:49:57 PostGrid: bcname = upwall
+2020-11-03 15:49:57 PostGrid: iblock = 7 
+2020-11-03 15:49:57 PostGrid: zone i = 2 
+2020-11-03 15:49:57 PostGrid: bcname = Farfield
+2020-11-03 15:49:57 PostGrid: iblock = 8 
+2020-11-03 15:49:57 PostGrid: zone i = 3 
+2020-11-03 15:49:57 PostGrid: zone i = 0 
+2020-11-03 15:49:57 PostGrid: bcname = Symmetry
+2020-11-03 15:49:57 PostGrid: iblock = 9 
+2020-11-03 15:49:58 PostGrid: zone i = 1 
+2020-11-03 15:49:58 PostGrid: bcname = Farfield
+2020-11-03 15:49:58 PostGrid: iblock = 10 
+2020-11-03 15:49:58 PostGrid: zone i = 2 
+2020-11-03 15:49:58 PostGrid: bcname = Farfield
+2020-11-03 15:49:58 PostGrid: iblock = 11 
+2020-11-03 15:49:58 PostGrid: zone i = 3 
+2020-11-03 15:49:58 PostGrid: Start exporter ......
+2020-11-03 15:49:59 PostGrid: End exporter ......

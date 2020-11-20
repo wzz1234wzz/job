@@ -1,0 +1,28 @@
+cfd:
+  name: phenglei
+  version: v3.1
+  host: 127.0.0.1:8899
+  workdir: /mnt/e/work1
+  griddir: /mnt/e/fts
+  postdir: /mnt/e/post
+sched:
+  #配置使用的调度器 pbspro slurm linux windows
+  #linux本地调度器 是模拟调度器的方式进行运行，但不是一个真正的调度器
+  #windows本地调度器
+  name: linux
+  #提交作业用户名,在真实调度器生效
+  user: yskj
+  #提交脚本 ph_ys144.sh 10.0.1.144测试环境脚本, ph_ysjn.sh 济南集群提交脚本
+  script: ph_ys144.sh
+  # 提交脚本 有三个参数,作业名称，核数，脚本名称
+  # 144内网环境 qsub -N %v -W sandbox=PRIVATE -q workq  -l nodes=1:ppn=%v %v
+  # 济南集群环境 qsub -N %v -W sandbox=PRIVATE -q phenglei -l Qlist=phenglei -l nodes=1:ppn=%v %v
+  subcmdshell: qsub -N %v -W sandbox=PRIVATE -q workq  -l nodes=1:ppn=%v %v
+env:
+  #VNC ENV
+  vnc: DISPLAY=localhost:2
+  #MPI ENV
+  mpi: LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/mpich/lib
+
+jwt:
+  jwtSecret: phenglei

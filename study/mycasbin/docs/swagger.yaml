@@ -1,0 +1,415 @@
+basePath: /api
+definitions:
+  casbinRule.reqAdd:
+    properties:
+      v0:
+        type: string
+      v1:
+        type: string
+      v2:
+        type: string
+    type: object
+  casbinRule.reqDelete:
+    properties:
+      v0:
+        type: string
+      v1:
+        type: string
+      v2:
+        type: string
+    type: object
+  casbinRule.reqRoleAdd:
+    properties:
+      role:
+        type: string
+      user:
+        type: string
+    type: object
+  casbinRule.reqRoleDelete:
+    properties:
+      role:
+        type: string
+      user:
+        type: string
+    type: object
+  casbinRule.respAdd:
+    properties:
+      message:
+        type: string
+    required:
+    - message
+    type: object
+  casbinRule.respDelete:
+    properties:
+      message:
+        type: string
+    required:
+    - message
+    type: object
+  casbinRule.respGet:
+    properties:
+      policy:
+        items:
+          items:
+            type: string
+          type: array
+        type: array
+    required:
+    - policy
+    type: object
+  casbinRule.respRoleAdd:
+    properties:
+      message:
+        type: string
+    required:
+    - message
+    type: object
+  casbinRule.respRoleDelete:
+    properties:
+      message:
+        example: sucess!
+        type: string
+    required:
+    - message
+    type: object
+  casbinRule.respRoleGet:
+    properties:
+      policy:
+        items:
+          type: string
+        type: array
+    required:
+    - policy
+    type: object
+  job.resp:
+    properties:
+      message:
+        type: string
+    required:
+    - message
+    type: object
+  user.reqAddUser:
+    properties:
+      passwd:
+        example: admin
+        type: string
+      username:
+        example: admin
+        type: string
+    required:
+    - passwd
+    - username
+    type: object
+  user.reqAuth:
+    properties:
+      passwd:
+        example: phenglei!@#
+        type: string
+      username:
+        example: root
+        type: string
+    required:
+    - passwd
+    - username
+    type: object
+  user.respAddUser:
+    properties:
+      id:
+        example: 1
+        type: integer
+      token:
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjE0LCJleHAiOjE1OTI3MDY3MTIsImlzcyI6InBoZW5nbGVpIn0.lKUH_H9lAMPgRrjpK4w67qYox1grQ7qWSh_0ZrDwu68
+        type: string
+    required:
+    - id
+    - token
+    type: object
+  user.respAuth:
+    properties:
+      jwttoken:
+        example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjE0LCJleHAiOjE1OTI3MDY3MTIsImlzcyI6InBoZW5nbGVpIn0.lKUH_H9lAMPgRrjpK4w67qYox1grQ7qWSh_0ZrDwu68
+        type: string
+      token:
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjE0LCJleHAiOjE1OTI3MDY3MTIsImlzcyI6InBoZW5nbGVpIn0.lKUH_H9lAMPgRrjpK4w67qYox1grQ7qWSh_0ZrDwu68
+        type: string
+    required:
+    - jwttoken
+    - token
+    type: object
+  user.respCurrentUser:
+    properties:
+      userid:
+        example: 2
+        type: integer
+      username:
+        example: admin
+        type: string
+    required:
+    - userid
+    - username
+    type: object
+host: localhost:9090
+info:
+  contact:
+    email: wzz@yuansuan.cn
+    name: www.topgoer.com
+    url: https://www.topgoer.com
+  description: This is a sample server celler server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://www.topgoer.com
+  title: Casbin Example API
+  version: "1.0"
+paths:
+  /hello:
+    get:
+      description: 向你说Hello
+      responses:
+        "200":
+          description: '{"msg": "Success"}'
+          schema:
+            type: string
+        "400":
+          description: '{"msg": "fail"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 测试SayHello
+      tags:
+      - Hello
+  /job/add:
+    get:
+      description: 测试增
+      responses:
+        "200":
+          description: 正常返回表示创建成功，否则返回错误码和错误信息
+          schema:
+            $ref: '#/definitions/job.resp'
+        "400":
+          description: '{"msg": "fail"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 增
+      tags:
+      - Job
+  /job/delete:
+    get:
+      description: 测试删
+      responses:
+        "200":
+          description: 正常返回表示删成功，否则返回错误码和错误信息
+          schema:
+            $ref: '#/definitions/job.resp'
+        "400":
+          description: '{"msg": "fail"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 删
+      tags:
+      - Job
+  /policy/add:
+    post:
+      consumes:
+      - application/json
+      description: 新增策略
+      parameters:
+      - description: 新增策略
+        in: body
+        name: param
+        required: true
+        schema:
+          $ref: '#/definitions/casbinRule.reqAdd'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 正常返回表示创建成功，否则返回错误码和错误信息
+          schema:
+            $ref: '#/definitions/casbinRule.respAdd'
+      security:
+      - ApiKeyAuth: []
+      summary: 新增策略
+      tags:
+      - Policy
+  /policy/delete:
+    post:
+      consumes:
+      - application/json
+      description: 删除policy
+      parameters:
+      - description: 删除策略
+        in: body
+        name: param
+        required: true
+        schema:
+          $ref: '#/definitions/casbinRule.reqDelete'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 正常返回表示删除成功，否则返回错误码和错误信息
+          schema:
+            $ref: '#/definitions/casbinRule.respDelete'
+      security:
+      - ApiKeyAuth: []
+      summary: 删除policy
+      tags:
+      - Policy
+  /policy/get:
+    get:
+      consumes:
+      - application/json
+      description: 获取policy
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 正常返回表示获取成功，否则返回错误码和错误信息
+          schema:
+            $ref: '#/definitions/casbinRule.respGet'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取policy
+      tags:
+      - Policy
+  /role/add:
+    post:
+      consumes:
+      - application/json
+      description: 新增角色
+      parameters:
+      - description: 新增角色
+        in: body
+        name: param
+        required: true
+        schema:
+          $ref: '#/definitions/casbinRule.reqRoleAdd'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 正常返回表示创建成功，否则返回错误码和错误信息
+          schema:
+            $ref: '#/definitions/casbinRule.respRoleAdd'
+      security:
+      - ApiKeyAuth: []
+      summary: 新增角色
+      tags:
+      - Role
+  /role/delete:
+    post:
+      consumes:
+      - application/json
+      description: 删除Role
+      parameters:
+      - description: 删除策略
+        in: body
+        name: param
+        required: true
+        schema:
+          $ref: '#/definitions/casbinRule.reqRoleDelete'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 正常返回表示删除成功，否则返回错误码和错误信息
+          schema:
+            $ref: '#/definitions/casbinRule.respRoleDelete'
+      security:
+      - ApiKeyAuth: []
+      summary: 删除Role
+      tags:
+      - Role
+  /role/get:
+    get:
+      consumes:
+      - application/json
+      description: 获取Role
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 正常返回表示获取成功，否则返回错误码和错误信息
+          schema:
+            $ref: '#/definitions/casbinRule.respRoleGet'
+      security:
+      - ApiKeyAuth: []
+      summary: 获取Role
+      tags:
+      - Role
+  /user/adduser:
+    post:
+      consumes:
+      - application/json
+      description: 添加用户，输入用户的用户名和密码即可
+      parameters:
+      - description: 用户名和密码
+        in: body
+        name: param
+        required: true
+        schema:
+          $ref: '#/definitions/user.reqAddUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 正常返回
+          schema:
+            $ref: '#/definitions/user.respAddUser'
+      security:
+      - ApiKeyAuth: []
+      summary: 添加用户
+      tags:
+      - User
+  /user/auth:
+    post:
+      consumes:
+      - application/json
+      description: 登录鉴权，输入用户名和密码，返回Token
+      parameters:
+      - description: 用户名和密码
+        in: body
+        name: param
+        required: true
+        schema:
+          $ref: '#/definitions/user.reqAuth'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 验证通过后返回Token
+          schema:
+            $ref: '#/definitions/user.respAuth'
+      summary: 登录鉴权
+      tags:
+      - User
+  /user/current:
+    get:
+      consumes:
+      - multipart/form-data
+      description: 通过Token查询当前用户信息，通过token,返回用户ID和用户名
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回用户ID和用户名
+          schema:
+            $ref: '#/definitions/user.respCurrentUser'
+      security:
+      - ApiKeyAuth: []
+      summary: 查询当前用户
+      tags:
+      - User
+securityDefinitions:
+  ApiKeyAuth:
+    authorizationUrl: ""
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

@@ -1,0 +1,48 @@
+# nBoundaryConditons : number of global boundary conditions.
+# bcName             : Boundary Condition Name.
+# bcType(in PHengLEI): Boundary Condition Type.
+
+# Account of how to set boundaryconditon.
+# string bcName = "Farfield";		  
+# {									  
+#   int bcType = 4;					  
+#   int inflowParaType = 1;			  
+#   double attackd = 0;				  
+#   double reynolds = 6.5e6;			  
+#   double reference_mach_number = 3.5;  
+#   double sideslipd = 0;				  
+# }									  
+
+int nBoundaryConditons = 4;
+string bcName = "downwall";
+{
+  int bcType = 2;
+}
+string bcName = "upwall";
+{
+  int bcType = 2;
+}
+string bcName = "Symmetry";
+{
+  int bcType = 3;
+}
+string bcName = "Farfield";
+{
+  int bcType = 4;
+}
+
+# 'bcType' is defined as following:
+#    99: PERIODIC              	
+#    -2: WAKE                  	
+#    -1: INTERFACE             	
+#    0 : NO_BOUNDARY_CONDITION 	
+#    1 : EXTRAPOLATION         	
+#    2 : SOLID_SURFACE         	
+#    3 : SYMMETRY              	
+#    4 : FARFIELD              	
+#    5 : INFLOW                	
+#    6 : OUTFLOW               	
+#    52: PRESSURE_INLET		    
+#    62: PRESSURE_OUTLET		   	
+#    61: OUTFLOW_CONFINED      	
+#    7 : POLE						

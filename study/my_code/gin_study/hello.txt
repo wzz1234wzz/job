@@ -1,0 +1,9 @@
+<h1 style='color:orange'>Hellow Golang!</h1>
+<h2>Heow are you</h2>
+<img id='i1' src='https://www.baidu.com/link?url=062GFOt2RN-5inIG2zWuN6cQy223UTWQ5u4cObm7W0m4B3qmEE11WCqYOjxBzwXWrz8_gcRL-7tXA01vqXvq250gj_NIv8UDR7lt1d0wB07qEKN7_9p-zm8zbY0MX53Zi3SrVqzF4NC5uZjcoKcL1yibh8ClBnUEr5LJvo_cCnTOSuWBAO06DaNJOGZ6XCDlna5C1C6wxgPi7bGOq0mubI0Kqt_Zdsfcv-ZjBYonxEj5QBNZxZlwsCPKa-_QQaMWV0n6esblBBtTtS4o-RC3IS7HyxZr4rKZHyp0nkuCEaFS9hD8tsb-ftYAp-LLV0rRuZkeTGcDuBTo5XCsgBBG7FcxZW610IJabso37Xwloa7DKYZ_gqbRjugT-Ehhf_gt445C87RMTq7YZN3HLRnT5EyzjINqzZjmd74qaiNxxmUfNAYgyvrkxaQ3EWIEvML90VLQI32PQsW3p5XxnB_tUOU2GIr0o0JGmqNbMoigX3UpXDAaTU8t91FIRZ5iZnwnA0kYa3KoBp8-_5EKJRHQXesUlEiUx5-WLCD1MBDb1M3Y_1K6gxV09AKVWYsr4oaeGPgbXWmru5CYfCWByScEt_&timg=https%3A%2F%2Fss0.bdstatic.com%2F94oJfD_bAAcT8t7mm9GUKT-xh_%2Ftimg%3Fimage%26quality%3D100%26size%3Db4000_4000%26sec%3D1596259871%26di%3D717492181f6a3d735b4980068ba50e65%26src%3Dhttp%3A%2F%2Fdmimg.5054399.com%2Fallimg%2Fpkm%2Fpk%2F13.jpg&click_t=1596260147361&s_info=1764_902&wd=&eqid=82dabb2b000430df000000045f24fe1e'>
+<button id='b1'>点我</button>
+<script>
+document.getElementById('b1').onclick=function(){
+    document.getElementById('i1').src='https://www.baidu.com/link?url=ej2veE4qFpofStkU4B83d3gJwFDkiNF7-D2cjOmEdMBLzXSXqxE6uL2TVbpFEWV3IyZiPz96y_6r5AdcJOsw0a&wd=&eqid=f3ef13bb0014844b000000045f24ff86'
+}
+</script>

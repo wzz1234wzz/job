@@ -1,0 +1,109 @@
+basePath: /wzz
+definitions:
+  main.reqAuth:
+    properties:
+      passwd:
+        example: admin
+        type: string
+      username:
+        example: admin
+        type: string
+    required:
+    - passwd
+    - username
+    type: object
+  main.respAuth:
+    properties:
+      isok:
+        example: "yes"
+        type: string
+      passwd:
+        example: admin
+        type: string
+      username:
+        example: admin
+        type: string
+    required:
+    - isok
+    - passwd
+    - username
+    type: object
+host: localhost:9090
+info:
+  contact:
+    email: me@razeen.me
+    name: www.topgoer.com
+    url: https://www.topgoer.com
+  description: This is a sample server celler server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://www.topgoer.com
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /hi/hello:
+    get:
+      consumes:
+      - application/json
+      description: 向你说Hello
+      parameters:
+      - description: 人名
+        in: query
+        name: who
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{"msg": "hello Razeen"}'
+          schema:
+            type: string
+        "400":
+          description: '{"msg": "who are you"}'
+          schema:
+            type: string
+      summary: 测试SayHello
+      tags:
+      - 测试
+  /load/login:
+    post:
+      consumes:
+      - application/json
+      description: 登录鉴权，输入用户名和密码，返回Token
+      parameters:
+      - description: 用户名和密码
+        in: body
+        name: param
+        required: true
+        schema:
+          $ref: '#/definitions/main.reqAuth'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 验证是否通过
+          schema:
+            $ref: '#/definitions/main.respAuth'
+      summary: 模拟登录
+      tags:
+      - User
+  /runtime/download:
+    post:
+      consumes:
+      - application/json
+      description: Download file
+      produces:
+      - application/octet-stream
+      responses:
+        "200":
+          description: 成功
+          schema:
+            type: string
+        "400":
+          description: 失败
+          schema:
+            type: string
+      summary: Download txt file
+      tags:
+      - download
+swagger: "2.0"

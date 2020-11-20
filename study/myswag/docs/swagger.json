@@ -1,0 +1,161 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a sample server celler server.",
+        "title": "Swagger Example API",
+        "termsOfService": "https://www.topgoer.com",
+        "contact": {
+            "name": "www.topgoer.com",
+            "url": "https://www.topgoer.com",
+            "email": "me@razeen.me"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:9090",
+    "basePath": "/wzz",
+    "paths": {
+        "/hi/hello": {
+            "get": {
+                "description": "向你说Hello",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "测试"
+                ],
+                "summary": "测试SayHello",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "人名",
+                        "name": "who",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"msg\": \"hello Razeen\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "{\"msg\": \"who are you\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/load/login": {
+            "post": {
+                "description": "登录鉴权，输入用户名和密码，返回Token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "模拟登录",
+                "parameters": [
+                    {
+                        "description": "用户名和密码",
+                        "name": "param",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/main.reqAuth"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "验证是否通过",
+                        "schema": {
+                            "$ref": "#/definitions/main.respAuth"
+                        }
+                    }
+                }
+            }
+        },
+        "/runtime/download": {
+            "post": {
+                "description": "Download file",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/octet-stream"
+                ],
+                "tags": [
+                    "download"
+                ],
+                "summary": "Download txt file",
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "失败",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "main.reqAuth": {
+            "type": "object",
+            "required": [
+                "passwd",
+                "username"
+            ],
+            "properties": {
+                "passwd": {
+                    "type": "string",
+                    "example": "admin"
+                },
+                "username": {
+                    "type": "string",
+                    "example": "admin"
+                }
+            }
+        },
+        "main.respAuth": {
+            "type": "object",
+            "required": [
+                "isok",
+                "passwd",
+                "username"
+            ],
+            "properties": {
+                "isok": {
+                    "type": "string",
+                    "example": "yes"
+                },
+                "passwd": {
+                    "type": "string",
+                    "example": "admin"
+                },
+                "username": {
+                    "type": "string",
+                    "example": "admin"
+                }
+            }
+        }
+    }
+}

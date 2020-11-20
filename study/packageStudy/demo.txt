@@ -1,0 +1,134 @@
+type reqCopy struct {
+	ProjectID *int64 `json:"project_id" binding:"required,gte=1" example:"10"`
+}
+
+type respCopy struct {
+	ProjectID int64 `json:"project_id" binding:"required,gte=1" example:"10"`
+}
+
+// @Summary 另存工程
+// @Description  通过工程唯一YSID另存工程
+// @Tags Project
+// @Security ApiKeyAuth
+// @Accept json
+// @Produce json
+// @Param param body project.reqCopy true "输入工程YSID"
+// @Success 200 {object} project.respCopy  "正常返回表示另存成功，否则返回错误码和错误信息"
+// @Router /project/copy [post]
+func HandleCopy(c *gin.Context) {
+	var req reqCopy
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		helper.ReplyErr(c, errcode.ErrInvalidParam, err)
+		return
+	}
+	session := boot.MW.DefaultSession(c)
+	defer session.Close()
+	userID := c.GetInt64(consts.HeaderUserID)
+	var projectDao dao.ProjectDao
+
+	curentProject := projectDao.QueryByProjectID(c, session, userID, *req.ProjectID)
+	var project models.Project
+	project.Name = curentProject.Name
+	project.Type = curentProject.Type
+	project.Ndim = curentProject.Ndim
+	project.Gridtype = curentProject.Gridtype
+	project.Mode = curentProject.Mode
+	project.FromGtype = curentProject.FromGtype
+	project.Gridunit = curentProject.Gridunit
+	project.Axisup = curentProject.Axisup
+	project.Maxproc = curentProject.Maxproc
+	project.FromGfile = curentProject.FromGfile
+	project.UserId = curentProject.UserId
+	project.IsActivated = curentProject.IsActivated
+	projectID, _ := dao.Project.AddProject(c, session, &project)
+
+	//Run Grid Convert
+	workDir, err := helper.CreateJobDir(userID, projectID, "Default")
+	if err != nil {
+		helper.ReplyErr(c, errcode.ErrInvalidParam, err)
+		return
+	}
+	//Generate key.hypara and grid_para.hypara and partition.hypara
+	keyFilePath := helper.GetBinKeyPath(userID, *req.ProjectID, "Default") // 源文件路径
+	keyFilePathAim := helper.GetBinKeyPath(userID, projectID, "Default") // 源文件路径
+	_, err1 := hyparser.CopyFile(keyFilePath,keyFilePathAim)
+	if err1 != nil{
+		helper.ReplyErr(c, errcode.ErrInvalidParam, err)
+		return
+	}
+	gridFilePath := helper.GetBinGridPath(userID, *req.ProjectID, "Default")
+	gridFilePathAim := helper.GetBinKeyPath(userID, projectID, "Default") // 源文件路径
+	_, err2 := hyparser.CopyFile(gridFilePath,gridFilePathAim)
+	if err2 != nil{
+		helper.ReplyErr(c, errcode.ErrInvalidParam, err)
+		return
+	}
+	partitionFilePath := helper.GetBinPartitionPath(userID, *req.ProjectID, "Default")
+	partitionFilePathAim := helper.GetBinKeyPath(userID, projectID, "Default") // 源文件路径
+	_, err3 := hyparser.CopyFile(partitionFilePath,partitionFilePathAim)
+	if err3 != nil{
+		helper.ReplyErr(c, errcode.ErrInvalidParam, err)
+		return
+	}
+	selfCFDHY := helper.GetBinCFDSelfPath(userID, *req.ProjectID, "Default")
+	selfCFDHYAim := helper.GetBinCFDSelfPath(userID, projectID, "Default")
+	_, err4 := hyparser.CopyFile(selfCFDHY,selfCFDHYAim)
+	if err4 != nil{
+		helper.ReplyErr(c, errcode.ErrInvalidParam, err)
+		return
+	}
+	//Do Grid Convert
+	err = sched.DoGridConvert(workDir)
+	if err != nil {
+		helper.ReplyErr(c, errcode.ErrInvalidParam, err)
+		return
+	}
+
+	bcPath := helper.GetBinBCPath(userID, projectID, "Default")
+	bcPathAim := helper.GetBinBCPath(userID, projectID, "Default")
+	_, err5 := hyparser.CopyFile(bcPath,bcPathAim)
+	if err5 != nil{
+		helper.ReplyErr(c, errcode.ErrInvalidParam, err)
+		return
+	}
+	gridBCname := helper.GetGridBCNamePath(userID, projectID)
+	bcHY := &hyparser.BCHYPara{}
+	bcHY.DoParserToStruct(gridBCname)
+	bcHY.DoParserToFile(bcPathAim)
+
+	//Generate bcmesh to webfts
+	source := helper.GetGridBCMeshPath(userID, projectID)
+	ftsDir, _ := helper.CreateWebFtsDir(userID, projectID, "default")
+	sched.DoGridToWebGrid("default", source, ftsDir)
+	bcMap := bcHY.SubBCParas
+	for _, sub := range bcMap {
+		ftsDir, _ := helper.CreateWebFtsDir(userID, projectID, sub.BCName)
+		err = sched.DoGridToWebGrid(sub.BCName, source, ftsDir)
+		if err != nil {
+			helper.ReplyErr(c, errcode.ErrInvalidParam, err)
+			return
+		}
+	}
+
+	var resp respCopy
+	resp.ProjectID = projectID
+	helper.Ok(c, resp)
+}
+
+
+// CopyFile 拷贝文件函数
+func CopyFile(dstName, srcName string) (written int64, err error) {
+	src, err := os.Open(srcName) // 以读方式打开源文件
+	if err != nil {
+		return
+	}
+	defer src.Close()
+	// 以写|创建的方式打开目标文件
+	dst, err := os.OpenFile(dstName, os.O_WRONLY|os.O_CREATE, 0644)
+	if err != nil {
+		return
+	}
+	defer dst.Close()
+	return io.Copy(dst, src) //调用io.Copy()拷贝内容
+}

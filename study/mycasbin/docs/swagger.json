@@ -1,0 +1,651 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a sample server celler server.",
+        "title": "Casbin Example API",
+        "termsOfService": "https://www.topgoer.com",
+        "contact": {
+            "name": "www.topgoer.com",
+            "url": "https://www.topgoer.com",
+            "email": "wzz@yuansuan.cn"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:9090",
+    "basePath": "/api",
+    "paths": {
+        "/hello": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "向你说Hello",
+                "tags": [
+                    "Hello"
+                ],
+                "summary": "测试SayHello",
+                "responses": {
+                    "200": {
+                        "description": "{\"msg\": \"Success\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "{\"msg\": \"fail\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/job/add": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "测试增",
+                "tags": [
+                    "Job"
+                ],
+                "summary": "增",
+                "responses": {
+                    "200": {
+                        "description": "正常返回表示创建成功，否则返回错误码和错误信息",
+                        "schema": {
+                            "$ref": "#/definitions/job.resp"
+                        }
+                    },
+                    "400": {
+                        "description": "{\"msg\": \"fail\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/job/delete": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "测试删",
+                "tags": [
+                    "Job"
+                ],
+                "summary": "删",
+                "responses": {
+                    "200": {
+                        "description": "正常返回表示删成功，否则返回错误码和错误信息",
+                        "schema": {
+                            "$ref": "#/definitions/job.resp"
+                        }
+                    },
+                    "400": {
+                        "description": "{\"msg\": \"fail\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/policy/add": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "新增策略",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Policy"
+                ],
+                "summary": "新增策略",
+                "parameters": [
+                    {
+                        "description": "新增策略",
+                        "name": "param",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/casbinRule.reqAdd"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "正常返回表示创建成功，否则返回错误码和错误信息",
+                        "schema": {
+                            "$ref": "#/definitions/casbinRule.respAdd"
+                        }
+                    }
+                }
+            }
+        },
+        "/policy/delete": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "删除policy",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Policy"
+                ],
+                "summary": "删除policy",
+                "parameters": [
+                    {
+                        "description": "删除策略",
+                        "name": "param",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/casbinRule.reqDelete"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "正常返回表示删除成功，否则返回错误码和错误信息",
+                        "schema": {
+                            "$ref": "#/definitions/casbinRule.respDelete"
+                        }
+                    }
+                }
+            }
+        },
+        "/policy/get": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "获取policy",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Policy"
+                ],
+                "summary": "获取policy",
+                "responses": {
+                    "200": {
+                        "description": "正常返回表示获取成功，否则返回错误码和错误信息",
+                        "schema": {
+                            "$ref": "#/definitions/casbinRule.respGet"
+                        }
+                    }
+                }
+            }
+        },
+        "/role/add": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "新增角色",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Role"
+                ],
+                "summary": "新增角色",
+                "parameters": [
+                    {
+                        "description": "新增角色",
+                        "name": "param",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/casbinRule.reqRoleAdd"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "正常返回表示创建成功，否则返回错误码和错误信息",
+                        "schema": {
+                            "$ref": "#/definitions/casbinRule.respRoleAdd"
+                        }
+                    }
+                }
+            }
+        },
+        "/role/delete": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "删除Role",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Role"
+                ],
+                "summary": "删除Role",
+                "parameters": [
+                    {
+                        "description": "删除策略",
+                        "name": "param",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/casbinRule.reqRoleDelete"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "正常返回表示删除成功，否则返回错误码和错误信息",
+                        "schema": {
+                            "$ref": "#/definitions/casbinRule.respRoleDelete"
+                        }
+                    }
+                }
+            }
+        },
+        "/role/get": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "获取Role",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Role"
+                ],
+                "summary": "获取Role",
+                "responses": {
+                    "200": {
+                        "description": "正常返回表示获取成功，否则返回错误码和错误信息",
+                        "schema": {
+                            "$ref": "#/definitions/casbinRule.respRoleGet"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/adduser": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "添加用户，输入用户的用户名和密码即可",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "添加用户",
+                "parameters": [
+                    {
+                        "description": "用户名和密码",
+                        "name": "param",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/user.reqAddUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "正常返回",
+                        "schema": {
+                            "$ref": "#/definitions/user.respAddUser"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/auth": {
+            "post": {
+                "description": "登录鉴权，输入用户名和密码，返回Token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "登录鉴权",
+                "parameters": [
+                    {
+                        "description": "用户名和密码",
+                        "name": "param",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/user.reqAuth"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "验证通过后返回Token",
+                        "schema": {
+                            "$ref": "#/definitions/user.respAuth"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/current": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "通过Token查询当前用户信息，通过token,返回用户ID和用户名",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "查询当前用户",
+                "responses": {
+                    "200": {
+                        "description": "返回用户ID和用户名",
+                        "schema": {
+                            "$ref": "#/definitions/user.respCurrentUser"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "casbinRule.reqAdd": {
+            "type": "object",
+            "properties": {
+                "v0": {
+                    "type": "string"
+                },
+                "v1": {
+                    "type": "string"
+                },
+                "v2": {
+                    "type": "string"
+                }
+            }
+        },
+        "casbinRule.reqDelete": {
+            "type": "object",
+            "properties": {
+                "v0": {
+                    "type": "string"
+                },
+                "v1": {
+                    "type": "string"
+                },
+                "v2": {
+                    "type": "string"
+                }
+            }
+        },
+        "casbinRule.reqRoleAdd": {
+            "type": "object",
+            "properties": {
+                "role": {
+                    "type": "string"
+                },
+                "user": {
+                    "type": "string"
+                }
+            }
+        },
+        "casbinRule.reqRoleDelete": {
+            "type": "object",
+            "properties": {
+                "role": {
+                    "type": "string"
+                },
+                "user": {
+                    "type": "string"
+                }
+            }
+        },
+        "casbinRule.respAdd": {
+            "type": "object",
+            "required": [
+                "message"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "casbinRule.respDelete": {
+            "type": "object",
+            "required": [
+                "message"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "casbinRule.respGet": {
+            "type": "object",
+            "required": [
+                "policy"
+            ],
+            "properties": {
+                "policy": {
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "casbinRule.respRoleAdd": {
+            "type": "object",
+            "required": [
+                "message"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "casbinRule.respRoleDelete": {
+            "type": "object",
+            "required": [
+                "message"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "sucess!"
+                }
+            }
+        },
+        "casbinRule.respRoleGet": {
+            "type": "object",
+            "required": [
+                "policy"
+            ],
+            "properties": {
+                "policy": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "job.resp": {
+            "type": "object",
+            "required": [
+                "message"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "user.reqAddUser": {
+            "type": "object",
+            "required": [
+                "passwd",
+                "username"
+            ],
+            "properties": {
+                "passwd": {
+                    "type": "string",
+                    "example": "admin"
+                },
+                "username": {
+                    "type": "string",
+                    "example": "admin"
+                }
+            }
+        },
+        "user.reqAuth": {
+            "type": "object",
+            "required": [
+                "passwd",
+                "username"
+            ],
+            "properties": {
+                "passwd": {
+                    "type": "string",
+                    "example": "phenglei!@#"
+                },
+                "username": {
+                    "type": "string",
+                    "example": "root"
+                }
+            }
+        },
+        "user.respAddUser": {
+            "type": "object",
+            "required": [
+                "id",
+                "token"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "token": {
+                    "type": "string",
+                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjE0LCJleHAiOjE1OTI3MDY3MTIsImlzcyI6InBoZW5nbGVpIn0.lKUH_H9lAMPgRrjpK4w67qYox1grQ7qWSh_0ZrDwu68"
+                }
+            }
+        },
+        "user.respAuth": {
+            "type": "object",
+            "required": [
+                "jwttoken",
+                "token"
+            ],
+            "properties": {
+                "jwttoken": {
+                    "type": "string",
+                    "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjE0LCJleHAiOjE1OTI3MDY3MTIsImlzcyI6InBoZW5nbGVpIn0.lKUH_H9lAMPgRrjpK4w67qYox1grQ7qWSh_0ZrDwu68"
+                },
+                "token": {
+                    "type": "string",
+                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjE0LCJleHAiOjE1OTI3MDY3MTIsImlzcyI6InBoZW5nbGVpIn0.lKUH_H9lAMPgRrjpK4w67qYox1grQ7qWSh_0ZrDwu68"
+                }
+            }
+        },
+        "user.respCurrentUser": {
+            "type": "object",
+            "required": [
+                "userid",
+                "username"
+            ],
+            "properties": {
+                "userid": {
+                    "type": "integer",
+                    "example": 2
+                },
+                "username": {
+                    "type": "string",
+                    "example": "admin"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+            "authorizationUrl": ""
+        }
+    }
+}

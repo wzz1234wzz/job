@@ -1,0 +1,6 @@
+int pgridtype =  1;
+int maxproc =  2;
+string original_grid_file  =  "../grid/m6_str.fts";
+string partition_grid_file  =  "../grid/m6_str__2.fts";
+int numberOfMultigrid         =   1;
+

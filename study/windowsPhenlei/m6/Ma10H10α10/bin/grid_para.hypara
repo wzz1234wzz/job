@@ -1,0 +1,6 @@
+int gridtype =  1;
+int axisup =  2;
+int from_gtype =  2;
+string from_gfile  =  "../grid/m6_str.cgns";
+string out_gfile  =  "../grid/m6_str.fts";
+
